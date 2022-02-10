@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="/images/ssise.png" sizes="16x16" />
+    <title>Panier</title>
+</head>
+
+<body>
+    <%- include('header.ejs'); -%>
+
+        <% if (cartArray.length> 0) { %>
+
+            <div class="container">
+                <div class="cart">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Produit</th>
+                                <th>Titre</th>
+                                <th>Prix</th>
+                                <th>Quantité</th>
+                                <th>Sous Total</th>
+                                <th></th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% var total=0; %>
+                                <% cartArray.forEach(function(cart){ %>
+                                    <% var sub=parseFloat(cart.quantity * cart.product.price).toFixed(3) %>
+                                        <% total +=+sub %>
+                                            <tr>
+                                                <td><img height="100" width="100"
+                                                        src="images/products/<%= cart.product.image %>" alt=""></td>
+                                                <td>
+                                                    <%= cart.product.title %>
+                                                </td>
+                                                <td>
+                                                    <%= parseFloat(cart.product.price).toFixed(3) %>DT
+                                                </td>
+                                                <td><a href="/cart/add/<%= cart.product.title%>"><i
+                                                            class="fas fa-plus"></i></a>
+                                                    <%= cart.quantity %>
+                                                        <a href="/cart/subs/<%= cart.product.title%>"><i
+                                                                class="fas fa-minus"></i></a>
+                                                </td>
+                                                <td>
+                                                    <%= sub %>DT
+                                                </td>
+                                                <td><a href="/cart/delete/<%= cart.product.title %>"><i
+                                                            class="fas fa-trash-alt"></i></a></td>
+
+                                            </tr>
+                                            <% }); %>
+                                                <tr>
+                                                    <td colspan="6" style="text-align: right;"><b>Total: </b>
+                                                        <%= parseFloat(total).toFixed(3) %> DT
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="5" style="text-align: right;">
+                                                        <a class="btn btn-dark" href="/cart/clear">Vider le panier</a>
+                                                    </td>
+                                                    <td colspan="5" style="text-align: right;">
+                                                        <a class="btn btn-info" href="/order">Passer commander</a>
+                                                    </td>
+                                                </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <% } else {%>
+                <h3 style="text-align: center; margin: 57.5px 0; ">Il n'y a plus d'articles dans votre panier</h3>
+                <% }%>
+
+                    <%- include('footer.ejs'); -%>
+
+
+</body>
+
+
+</html>

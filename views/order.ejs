@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/ssise.png" sizes="16x16" />
+    <title>Commande</title>
+</head>
+
+<body>
+    <%- include('header.ejs'); -%>
+
+
+
+
+        <div class="container">
+            <div class="order">
+                 <div class="row">
+                <div class="col-sm-8">
+                    <% if (!isAuth){ %>
+                        <form method="get" action="/login">
+                            <a href="/login"> <button type="button" class="btn btn-info btn-lg btn-block">Connecter pour continuer </button></a>
+                            <label for="first"> Nom complet</label><br>
+                            <input type="text" class="form-control"  name="first" id="first" disabled>
+                            <label for="email">Email</label><br>
+
+                                <input type="email" class="form-control" name="email" id="email" disabled>
+                                <label for="phone">Téléphone</label><br>
+                                <input type="text" class="form-control"   name="phone" id="phone" disabled>
+                                <label for="phone">Adresse</label><br>
+                                <input type="text" class="form-control"  name="adresse" id="adresse" disabled>
+                                <label for="phone">Code</label><br>
+                                <input type="text" class="form-control"  name="code" id="code"  disabled>
+
+                                <label for="liv">Livraison</label>
+                                <select   class="form-control" name="liv" id="liv"disabled>
+                                    <option value="boutique">Boutique (Gratuit) </option>
+                                    <option value="domicile">A domicile (7Dt) </option>
+                                </select>
+
+                                <div class="form-check">
+                                <input  class="form-check-input" type="checkbox" id="payment" name="payment" value="payment" disabled>
+                                <label class="form-check-label" for="payment"> Obligation de paiement</label><br>
+                                </div>
+                                <br>
+                                <button type="submit" class="btn btn-dark" disabled>Commander</button>
+                        </form>
+                        <% }else{ %>
+                            <form method="post" action="/cart/order">
+                                <label for="first"> Nom complet</label><br>
+                                <input type="text" class="form-control" value="<%= user.displayName%>" name="first" id="first" disabled>
+                                <label for="email">Email</label><br>
+
+                                    <input type="email" class="form-control" value="<%= user.email%>" name="email" id="email" disabled>
+                                    <label for="phone">Téléphone</label><br>
+                                    <input type="text" class="form-control"  value="<%= user.phone%>" name="phone" id="phone" disabled>
+                                    <label for="phone">Adresse</label><br>
+                                    <input type="text" class="form-control"  value="<%= user.adresse%>"  name="adresse" id="adresse" >
+                                    <% if (errors ) { %>
+                                    <% errors.forEach(function(error) { %>
+                                        <% if(error.param=="adresse") {%><small >  <%=error.msg%> </small><% } %>
+                                    <% });%>
+                                    <% } %>
+
+                                    <br>
+                                    <label for="phone">Code</label><br>
+                                    <input type="text" class="form-control"   value="<%= user.codeP%>"  name="code" id="code"  >
+                                    <% if (errors ) { %>
+                                        <% errors.forEach(function(error) { %>
+                                            <% if(error.param=="code") {%><small >  <%=error.msg%> </small><% } %>
+                                        <% });%>
+                                    <% } %>
+                                    <br>
+                                    <label for="liv">Livraison</label>
+                                    <select  class="form-control" name="liv" id="liv">
+                                        <option value="boutique">Boutique (Gratuit) </option>
+                                        <option value="domicile">A domicile (7Dt) </option>
+                                    </select>
+
+                                    <div class="form-check">
+                                    <input  class="form-check-input" type="checkbox" id="payment" name="payment" value="payment" >
+                                    <label class="form-check-label" for="payment"> Obligation de paiement</label><br>
+                                    <% if (errors ) { %>
+                                        <% errors.forEach(function(error) { %>
+                                            <% if(error.param=="payment") {%><small >  <%=error.msg%> </small><% } %>
+                                        <% });%>
+                                    <% } %>
+                                    </div>
+                                    <br>
+                                    <button type="submit" class="btn btn-dark" style="margin-bottom: 20px; width: 150px;">Commander</button>
+                        <% } %>
+
+                </div>
+                <div class="col-sm-4">
+                    <table>
+                        <% var total=0;  %>
+                            <% cart.forEach(function(cart){ %>
+                                <% var sub=parseFloat(cart.quantity * cart.product.price).toFixed(3) %>
+                                    <% total +=+sub %>
+                                        <tr>
+                                            <td><img height="100" width="100" src="/images/products/<%= cart.product.image %>" alt=""></td>
+                                            <td>
+                                                <%= cart.product.title %>
+                                            </td>
+                                            <td><%= cart.product.price %>DT
+                                            </td>
+                                            <td>
+                                                <%= cart.quantity %>
+                                            </td>
+                                            <td><%= sub %>DT
+                                            </td>
+                                        </tr>
+                                        <% }); %>
+                                            <tr class="total" >
+
+                                                <td colspan="4" >Total:</td>  
+                                                <td ><%= parseFloat(total).toFixed(3) %>DT</td>
+                                                <input type="text"  name="total" value="<%=parseFloat(total).toFixed(2) %>" hidden >
+                                                
+                                            </tr>
+                                        </form>
+
+                    </table>
+
+                </div>
+            </div>
+            </div>
+        </div>
+        <%- include('footer.ejs'); -%>
+
+</body>
+
+</html>

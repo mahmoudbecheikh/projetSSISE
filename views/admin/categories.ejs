@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Categories</title>
+    <link rel="icon" href="/images/ssise.png" sizes="16x16" />
+  </head>
+  <body>
+    <%- include('header.ejs'); -%>
+
+    <div class="container contenu">
+      <h2 class="page-title">Catégories</h2>
+      <a href="/admin/categories/add-category" class="btn btn-dark"
+        >Créer une catégorie
+      </a>
+      <br /><br />
+
+      <% if (count > 0) { %>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Titre</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% categories.forEach(function(cat){ %>
+          <tr>
+            <td><%= cat.title %></td>
+            <td>
+              <a href="/admin/categories/edit-category/<%= cat._id %>"><i class="fas fa-edit"></i></a>
+              <a class="confirmDeletion"href="/admin/categories/delete-category/<%= cat._id %>"><i class="fa fa-trash"></i></a>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <% } else {%>
+      <h3 class="text-center">Il n'y a pas de catégories.</h3>
+      <% }%>
+    </div>
+  </body>
+</html>

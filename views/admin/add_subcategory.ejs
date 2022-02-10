@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Créer sous catégorie</title>
+    <link rel="icon" href="/images/ssise.png" sizes="16x16" />
+
+</head>
+
+<body>
+
+    <%- include('header.ejs'); -%>
+
+    <div class="container contenu">
+        <h2 class="page-title">Créer une sous catégorie</h2>
+        <a href="/admin/subcategories" class="btn btn-dark">Annuler</a>
+        <br><br>
+        <form method="post" action="/admin/subcategories/add-subcategory" >
+            <div class="form-group">
+                <label for="">Titre</label>
+                <input type="text" class="form-control" value="<%=title%>" name="title"  placeholder="Titre">
+            </div>
+            <div class="form-group">
+                <label for="">Catégorie</label>
+                <select name="category" class="form-control">
+                    <% categories.forEach(function(cat){ %>
+                        <option value="<%= cat.title %>">
+                            <%= cat.title %>
+                        </option>
+                        <% }); %>
+                </select>
+            </div>
+            <button class="btn btn-info">Créer</button>
+        </form>
+    </div>
+</body>
+
+</html>

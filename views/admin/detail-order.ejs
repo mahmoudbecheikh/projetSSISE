@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Détail de commande</title>
+    <link rel="icon" href="/images/ssise.png" sizes="16x16" />
+
+</head>
+<body>
+    <%- include('header.ejs'); -%>
+
+    <div class="container contenu">
+        <h2 class="page-title">Détail de commande</h2>
+        <table class="table  ">
+            <thead>
+                    <th>Image</th>
+                    <th>Titre</th>
+                    <th>Prix</th>
+                    <th>Quantité</th>
+                </tr>
+            </thead>
+            <tbody>
+        
+        <% details.forEach(function(detail){ %>
+            <% if(detail.product!=null) { %>
+            <tr>
+                <td><img id="image" height="100" width="100" src="/images/products/<%= detail.product.image %>"> </td>
+                <td><%= detail.product.title %></td>
+                <td><%= detail.product.price %>DT</td>
+                <td><%= detail.quantity %></td>
+            </tr>
+            <% } else { %>
+                <tr>
+                    <td colspan="3" style="text-align: center; color: red;">Le produit a été supprimé</td>
+                    <td><%= detail.quantity %></td>
+                </tr>
+            <% } %>
+
+            <% }); %>
+
+        </tbody>
+    </table>
+    </div>
+
+    
+
+
+    
+</body>
+</html>

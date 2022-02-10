@@ -1,0 +1,95 @@
+.form {
+  width: 500px;
+  margin: auto;
+  background: #FFF;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0,0,0,.3);
+  padding: 40px 30px;
+  margin-bottom: 25px;
+}
+
+.form .login-text {
+  color: #111;
+  font-weight: 500;
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 20px;
+  display: block;
+  text-transform: capitalize;
+}
+
+
+
+.form .login-email .input-group {
+  width: 100%;
+  height: 50px;
+  margin-bottom: 25px;
+}
+
+.form .login-email .input-group input {
+  width: 100%;
+  height: 100%;
+  border: 2px solid #e7e7e7;
+  padding: 15px 20px;
+  font-size: 1rem;
+  background: transparent;
+  outline: none;
+  transition: .3s;
+}
+
+.form .login-email .input-group input:focus, .form .login-email .input-group input:valid {
+  border-color: #566573;
+}
+
+.form .login-email .input-group .btn {
+  display: block;
+  width: 100%;
+  padding: 15px 20px;
+  text-align: center;
+  border: none;
+  background: #566573;
+  outline: none;
+  border-radius: 30px;
+  font-size: 1.2rem;
+  color: #FFF;
+  cursor: pointer;
+  margin-top: 5px;
+  transition: .3s;
+}
+
+
+.form .login-email .input-group .btn:hover {
+  transform: translateY(-5px);
+  background: #34495E;
+}
+
+.login-register-text {
+  color: #111;
+  font-weight: 600;
+}
+
+.login-register-text a {
+  text-decoration: none;
+  color: #3498DB
+}
+
+.login-register-text a:hover {
+  text-decoration: none;
+  color: #3498DB
+}
+
+.form small {
+  color: #cc0033;
+  display: inline-block;
+  font-size: 12px;
+  line-height: 15px;
+  margin: 5px 0 0
+  ;}
+
+
+@media (max-width: 430px) {
+  .form {
+      width: 300px;
+  }
+
+}

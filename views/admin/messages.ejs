@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Message</title>
+    <link rel="icon" href="/images/ssise.png" sizes="16x16" />
+
+  </head>
+  <body>
+    <%- include('header.ejs'); -%>
+
+    <div class="container contenu">
+    <h2 class="page-title">Message</h2>
+
+    <br /><br />
+
+    <% if (count > 0) { %>
+
+    <table class="table ">
+        <thead>
+        <tr>
+            <th>Nom complet</th>
+            <th>Email</th>
+            <th>Objet</th>
+            <th style="width: 50%">Message</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% messages.forEach(function(msg){ %>
+          <tr>
+            <td>
+              <% if(msg.reply) {%>
+              <i style="color: #4bca81" class="fas fa-check-circle"></i>
+              <% } else { %>
+              <i class="far fa-check-circle"></i>
+              <% } %> <%= msg.fullName %>
+            </td>
+            <td><%= msg.email %></td>
+            <td><%= msg.subject %></td>
+            <td style="max-width: 30px !important; overflow: hidden">
+              <a href="/admin/messages/<%= msg._id %>"> <%= msg.message %></a>
+            </td>
+            <td>
+              <a class="confirmDeletion"href="/admin/messages/delete-message/<%= msg._id %>"><i class="fa fa-trash"></i></a>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <% } else {%>
+      <h3 class="text-center">Il n'y a pas de messages.</h3>
+      <% }%>
+    </div>
+  </body>
+</html>

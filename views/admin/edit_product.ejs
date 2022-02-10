@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Editer produit</title>
+    <link rel="icon" href="/images/ssise.png" sizes="16x16" />
+
+</head>
+<body >
+    <%- include('header.ejs'); -%>
+
+    <div class="container contenu">
+        <h2 class="page-title">Editer produit</h2>
+    <a href="/admin/products" class="btn btn-dark">Retour</a>
+    <br><br>
+    <form method="post" action="/admin/products/edit-product/<%= id %>"  enctype="multipart/form-data">
+        
+        <div class="form-group">
+            <label for="">Titre</label>
+            <input type="text" class="form-control" name="title"  value="<%= prod.title %>" placeholder="Titre">
+        </div>
+        
+        <div class="form-group">
+            <label for="">Description</label>
+            <textarea name="desc" class="form-control" cols="30" rows="10"   placeholder="Description"><%= prod.description %></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="">Sous catégorie </label>
+            <select name="subcategory" class="form-control">
+                <% subcategories.forEach(function(cat){ %>
+                    
+                    <% if  (typeof(prod.subCategory)=="undefined") { %>
+                        <option value="<%= cat.titleSub %>"><%= cat.titleSub %></option> 
+                    <%} else {%>
+                        <% if(cat._id.toString()==prod.subCategory.toString() ){ %>
+                        <option value="<%= cat.titleSub %>" selected><%= cat.titleSub %> </option>
+                        <% } else{ %>  
+                        <option value="<%= cat.titleSub %>"><%= cat.titleSub %></option>
+                        <% } %>
+                    <%}%>
+
+
+                <% }); %>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="">Prix</label>
+            <input type="text" class="form-control" name="price" value="<%= prod.price %>"   placeholder="Prix">
+        </div>
+
+        <div class="form-group">
+            <label for="">quantité</label>
+            <input type="text" class="form-control" name="quantity"  value="<%= prod.quantity %>"  placeholder="quantité">
+        </div>
+        
+        <div class="form-group">
+            <label for="">Image</label>
+            <input type="file" class="form-control"  name="image" id="img" onchange="onFileSelected(event)">
+            <img id="myimage" src="/images/products/<%= prod.image %>" height="200" width="200" >
+        </div>
+        
+        <button class="btn btn-info">Editer</button>
+    </form>
+    </div>
+    
+
+<script>
+    function onFileSelected(event) {
+        var selectedFile = event.target.files[0];
+        var reader = new FileReader();
+
+        var imgtag = document.getElementById("myimage");
+        imgtag.hidden=false;
+        imgtag.title = selectedFile.name;
+
+        reader.onload = function (event) {
+            imgtag.src = event.target.result;
+        };
+        reader.readAsDataURL(selectedFile);
+    };
+
+</script>
+</body>
+</html>

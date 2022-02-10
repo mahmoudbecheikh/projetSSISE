@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Administrateur</title>
+    <link rel="icon" href="/images/ssise.png" sizes="16x16" />
+    <link rel="stylesheet" href="/stylesheets/admin.css">
+    <style>
+        table tr td{
+            text-transform: capitalize;
+            padding: 10px;
+            width: 100%;
+
+}
+        
+
+
+
+    </style>
+</head>
+
+<body>
+    <%- include('header.ejs'); -%>
+
+        <div class="container dash text-center">
+            <h1>Tableau de bord</h1>
+
+            <div class="row">
+                <div class="col-md">
+                    <a href="/admin/categories">
+                        <div class="stat cat">Catégories
+                            <span>
+                                <%=cat%>
+                            </span>
+                        </div>
+                    </a>
+
+                </div>
+                <div class="col-md">
+                    <a href="/admin/subcategories">
+                        <div class="stat subc">Sous catégories
+                            <span>
+                                <%=subc%>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md">
+                    <a href="/admin/products">
+                        <div class="stat prod">Produits
+                            <span>
+                                <%=prod%>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+
+
+                <div class="col-md">
+                    <a href="/admin/orders">
+                        <div class="stat order">Commandes
+                            <span>
+                                <%=order%>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md">
+                    <a href="/admin/users">
+                        <div class="stat user">Utilisateurs
+                            <span>
+                                <%=user%>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md">
+                    <a href="/admin/messages">
+                        <div class="stat msg">Messages
+                            <span>
+                                <%=msg%>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+
+                    <div class="card" style="width: 100%;">
+                        <div class="card-header">
+                            dernière commande
+                        </div>
+
+                        <table>
+                            
+                            <% orders.forEach(function(order){ %>
+                                <tr class="list-group-item">
+                                <td><%=order.user.displayName%></td>
+                                <td><%=parseFloat(order.montant).toFixed(2)%>DT</td>
+                                <% var time=Math.ceil((Date.now()-order.date)/ (1000 * 60 ))%>
+                                    <% if(time>1440){ time=Math.ceil(time/1440)%>
+                                        <td><%=time%>j</td>
+                                            <% } else { if(time>60){ time=Math.ceil(time/60) %>
+    
+                                                <td><%=time%>h</td>
+                                                    <% }else{ %>
+                                                        <td><%=time%>min</td>
+                                                            <% } %>
+                                                                <% } %>
+                                </tr>
+                                <% }) %>
+
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+</body>
+
+</html>

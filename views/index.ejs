@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>SSISE</title>
+  <link rel="icon" href="/images/ssise.png" sizes="16x16" />
+</head>
+
+<body>
+  <%- include('header.ejs'); -%>
+
+
+    <!-- Start slider -->
+    <div class="slider">
+      <div id="main-slider" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#main-slider" data-slide-to="0" class="active"></li>
+          <li data-target="#main-slider" data-slide-to="1"></li>
+          <li data-target="#main-slider" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item car-one active"></div>
+          <div class="carousel-item car-two"></div>
+          <div class="carousel-item car-three"></div>
+        </div>
+      </div>
+    </div>
+    <!-- end slider  -->
+
+    <!-- start produit  -->
+
+    <div class="produit text-center">
+      <div class="container">
+        <h2>Décourvrir Notre Produits</h2>
+        <p>
+          SSISE rend les achats en ligne faciles et pratiques,
+          avec des délais de livraison courts.
+          De plus, nous vous assurons des transactions sûres et fiables.
+          Avec SSISE, vous pourrez acheter des biens au meilleur prix,
+          en toute sécurité et sans sortir de chez vous !
+        </p>
+        <a href="/product"><button>Voir Produit</button></a>
+      </div>
+    </div>
+
+    <!-- end produit  -->
+
+    <!-- start service -->
+    <div id="service" class="service text-center">
+      <div class="container">
+        <h1 class="">Service</h1>
+        <div class="row">
+          <div class="col-sm-4">
+            <img src="/images/shop.png" class="rounded-circle" alt="" />
+            <h3>Vente</h3>
+            <p>
+              SSISE contient aussi une partie importante c’est la vente divers accessoires et composants
+              informatiques … 
+            </p>
+          </div>
+          <div class="col-sm-4">
+            <img src="/images/security.png" class="rounded-circle" alt="" />
+            <h3>Sécurité</h3>
+            <p>
+              SSISE est au service de ses clients pour répondre à tous leurs besoins en matière de détection incendie, vidéosurveillance, systèmes anti-intrusion ... 
+            </p>
+          </div>
+          <div class="col-sm-4">
+            <img src="/images/dev.jpg" class="rounded-circle" alt="" />
+            <h3>Développement</h3>
+            <p>
+              SSISE est spécialisé dans le développement de logiciels personnalisés,
+              de sites web, d'applications web et d'applications mobiles
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end service -->
+
+
+    <!-- start propos  -->
+
+    <div class="propos" id="propos">
+      <h2>A propos</h2>
+      <div class="container">
+        <div class="row">
+
+          <div class="col-md-6">
+            <p>
+              SSISE Ste Slouli informatique & Sécurité electronique, est une sociéte de service spécialisé en développement des applications informatique et l'installation des logiciels de sécurité électronique.
+            </p>
+          </div>
+
+          <div class="col-md-6">
+            <img src="/images/team.png" class="rounded" alt="">
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- end propos  -->
+
+
+    <!-- end contact -->
+
+    <div class="contact" id="contact">
+      <h1 class="text-center">Contact</h1>
+      <div class="contact-in">
+        <div class="contact-map">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1092.3942707750748!2d10.262545201366814!3d36.85142078648409!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12fd4aab3c4dbf2b%3A0x2aed2d0f14a90019!2sRue%20Hamza%20Ibn%20Abi%20El%20Montaleb%2C%20Tunis!5e1!3m2!1sfr!2stn!4v1629555760029!5m2!1sfr!2stn"
+            width="600" height="450" style="border: 0" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <div class="contact-form">
+          <form method="POST" action="/contact">
+
+            <% if(errors ) { %>
+            <input type="text" placeholder="Nom Complet" name="fullName" class="contact-form-txt" />
+            <% errors.forEach(function(error) { %>
+              <% if(error.param=="fullName") {%><small >  <%=error.msg%> </small><% } %>
+            <% });%>
+
+            <input type="text" placeholder="Objet" name="subj" class="contact-form-txt" />
+            <% errors.forEach(function(error) { %>
+              <% if(error.param=="subj") {%><small >  <%=error.msg%> </small><% } %>
+            <% });%>
+
+
+            <input type="text" placeholder="Email" name="email" class="contact-form-txt" />
+            <% errors.forEach(function(error) { %>
+              <% if(error.param=="email") {%><small >  <%=error.msg%> </small><% } %>
+            <% });%>
+            <textarea placeholder="Message" name="message" class="contact-form-textarea"></textarea>
+            <% errors.forEach(function(error) { %>
+              <% if(error.param=="message") {%><small >  <%=error.msg%> </small><% } %>
+            <% });%>
+            <input type="submit" name="Submit" class="contact-form-btn" />
+            
+            <% } else { %>
+                <input type="text" placeholder="Nom Complet" name="fullName" class="contact-form-txt" />
+                <input type="text" placeholder="Objet" name="subj" class="contact-form-txt" />
+                <input type="text" placeholder="Email" name="email" class="contact-form-txt" />
+                <textarea placeholder="Message" name="message" class="contact-form-textarea"></textarea>
+                <input type="submit" name="Submit" class="contact-form-btn" />
+            <% }  %>
+
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+
+    <%- include('footer.ejs'); -%>
+
+
+      <script src=" https://smtpjs.com/v3/smtp.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/images/ssise.png" sizes="16x16" />
+    <title>Commande</title>
+    <style>
+        .modal-body span{
+            color: #295284;
+            font-weight: bold;
+        }
+        .modal-body label {
+            margin-right: 15px;
+        }
+    </style>
+</head>
+<body>
+    <%- include('header.ejs'); -%>
+    <div class="container contenu">
+        <h2 class="page-title">Commandes</h2>
+                <form class="form-inline my-2 my-lg-0 " method="get" action="/admin/orders">
+                    <input class="form-control col-sm-6 mr-2 text-left" name="input" type="search" placeholder="Rechercher avec id ou utilisateur" aria-label="Search">
+                    <button class="btn btn-outline-info my-2 my-sm-0 text-right" type="submit">Rechercher</button>
+
+                </form>
+
+
+                <!-- Button trigger modal -->
+
+                <button type="button" class="btn btn-info active" data-toggle="modal" data-target="#exampleModal" style="float: right;margin-top: -40px;margin-bottom:6px;margin-right: 50px;width: 220px!important;"  >
+                    Filtrer
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Filtrer</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" >
+                                <form action="/admin/orders" method="get" >
+                                    <span>Livraison : </span><br>
+                                    <input type="radio" id="liv" name="liv" value="boutique">
+                                    <label >Boutique</label>
+
+                                    <input type="radio" id="liv" name="liv" value="domicile">
+                                    <label>Domicile</label>
+
+                                    <span>Paiement : </span><br>
+                                    <input type="radio" id="paiement" name="paiement" value="true">
+                                    <label >Payée</label>
+
+                                    <input type="radio" id="paiement" name="paiement" value="false">
+                                    <label>Non payée</label>
+                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            </div>
+                        </form>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+
+
+
+        <% if (count > 0) { %>
+            <table class="table ">
+                <thead>
+                    <tr class="home">
+                        <th>Numero</th>
+                        <th>Utilisateur</th>
+                        <th>Montant</th>
+                        <th>Livraison</th>
+                        <th>Date</th>
+                        <th>Détail</th>
+                        <th colspan="2">Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <% orders.forEach(function(order){ %>
+                        <% if(order.user!=null) { %>
+                    <tr>
+                        <td style="text-transform: capitalize;"> 
+                            <% if(order.payment) {%>
+                                <i style="color: #4bca81" class="fas fa-check-circle"></i>
+                                <% } else { %>
+                                <i class="far fa-check-circle"></i>
+                                <% } %> 
+                                <span style="font-size: 18px;"><%= order.numero %></span>
+                            </td>
+                        <td><a href="/admin/users/#<%= order.user._id %>"> <%= order.user.displayName %></a></td>
+                        <td><%= parseFloat(order.montant).toFixed(2) %>DT</td>
+                        <td><%= order.livraison %></td>
+                        <td><%= order.date.toLocaleString('en-US') %></td>
+                        <td><a  href="/admin/orders/detail-order/<%= order._id %>"><i class="fas fa-info-circle"></i>Voir détail</a></td>
+                        <form action="/admin/orders/confirmer/<%= order._id %>" method="post">
+                            <td>
+                            <% if(!order.payment){ %>
+                            <button  type="submit" class="btn btn-dark"  >Confirmer paiement </button>
+                            <% } else { %>
+                            <button style="margin-top: -8px;" type="submit" class="btn btn-dark" disabled >Confirmer paiement</button>
+                            <% } %>
+                            </td>
+                            </form>
+                            <td>
+                                <a  href="/admin/orders/facture/<%= order._id %>"><i class="fa fa-download"></i></a>
+                                <a  href="/admin/orders/delete-order/<%= order._id %>"><i class="fa fa-trash"></i></a>
+                            </td>
+
+                        </tr>
+                    <% } else { %>
+                        <tr>
+                            <td style="text-transform: capitalize;">Utilisateur supprimé</td>
+                            <td><%= parseFloat(order.montant).toFixed(2) %>DT</td>
+                            <td><%= order.date.toLocaleString('en-US') %></td>
+                            <td><a  href="/admin/orders/detail-order/<%= order._id %>"><i class="fas fa-info-circle"></i>Voir détail</a></td>
+                            <form action="" method="post">
+                            <td>
+                            <button type="submit" class="btn btn-dark" disabled >Confirmer paiement </button>
+                            </td>
+                            </form>
+                            <td><a  href="/admin/orders/delete-order/<%= order._id %>"><i class="fa fa-trash"></i></a></td>
+
+                        </tr>
+                    <% }   %>
+
+                    <% }); %>
+                </tbody>
+            </table>
+            <% } else {%>
+            <h3 class="text-center">Il n'y a pas de commandes.</h3>
+            <% }%>
+    </div>
+
+    
+    
+</body>
+</html>

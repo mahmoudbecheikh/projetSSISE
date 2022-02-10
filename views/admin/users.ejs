@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Utilisateur</title>
+    <link rel="icon" href="/images/ssise.png" sizes="16x16" />
+</head>
+<body>
+    <%- include('header.ejs'); -%>
+
+  
+
+    <div class="container contenu">
+        <h2 class="page-title">Utilisateurs</h2>
+        <a href="/admin/users/add-user" class="btn btn-dark">Créer un utilisateur </a>
+        <br><br>
+        <% if (count > 0) { %>
+
+            <table class="table ">
+                <thead>
+                    
+                    <tr class="home">
+                        <th>ID</th>
+                        <th>Nom complet</th>
+                        <th>Email</th>
+                        <th>Téléphone</th>
+                        <th>Adresse</th>
+                        <th>Code</th>
+                        <th>Administrateur</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+        
+        
+                    <% users.forEach(function(user){ %>
+                    <tr id="<%= user._id %>">
+                        <td><%= user._id %></td>
+                        <td><%= user.displayName %></td>
+                        <td><%= user.email %></td>
+                        <td><%= user.phone %></td>
+                        <td><%  if(user.adresse!=""){ %>
+                            <%= user.phone %>
+                            <% } else {%>
+                                ---
+                            <% } %>
+                        </td>
+
+
+                        <td><%  if(user.codeP!=""){ %>
+                            <%= user.codeP %>
+                            <% } else {%>
+                                ---
+                            <% } %>
+                        </td>
+                        <td>
+                            <%if(user.role==1) {%>
+                                Administrateur
+                            <%}else{%>
+                                Client
+                            <%}%>
+                        </td>
+
+                        
+                        
+                        <td><a href="/admin/users/edit-user/<%= user._id %>"><i class="fas fa-edit"></i></a>
+                        <a class="confirmDeletion" href="/admin/users/delete-user/<%= user._id %>"><i class="fa fa-trash"></i></a></td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        
+            <% } else {%>
+            <h3 class="text-center">Il n'y a pas d'utilisateurs.</h3>
+            <% }%>
+    </div>
+  
+
+</body>
+</html>
+

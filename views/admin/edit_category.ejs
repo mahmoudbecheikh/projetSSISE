@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Editer catégorie</title>
+    <link rel="icon" href="/images/ssise.png" sizes="16x16" />
+
+</head>
+<body>
+
+    <%- include('header.ejs'); -%>
+    <div class="container contenu">
+        <h2 class="page-title">Editer catégorie</h2>
+        <a href="/admin/categories" class="btn btn-dark">Retour</a>
+        <br><br>
+        <form method="post" action="/admin/categories/edit-category/<%= id %>">
+            
+            <div class="form-group">
+                <label for="">Titre</label>
+                <input type="text" class="form-control" name="title" value="<%= title %>" placeholder="Titre">
+            </div>
+            <button class="btn btn-info">Editer</button>
+        </form>
+    </div>
+
+    
+</body>
+</html>

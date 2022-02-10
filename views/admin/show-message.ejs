@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Message</title>
+    <link rel="icon" href="/images/ssise.png" sizes="16x16" />
+    <style>
+      .reply{
+        margin-top: 20px;
+        padding: 25px;
+        border: 1px solid grey;
+        width: 100%;
+      }
+      .message{
+        width: 50%;
+        overflow: hidden;
+        margin-bottom: 30px;
+      }
+
+      h1,h2{
+        color: #424949;
+      }
+
+      .message button{
+        margin-top: 25px;
+      }
+
+      .message textarea{
+        margin-top: 25px;
+        width: 350px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <%- include('header.ejs'); -%>
+
+    <div class="container contenu">
+
+      <div class="row">
+
+        <div class="col-md-8">
+
+          <div class="message">
+            <h1><%= message.subject %></h1>
+            <p>De : <%= message.fullName %> <%= message.email %>   </p>
+            <div>
+              <%= message.message %>
+            </div>  
+            <button type="button" id="btn" onclick="show()" class="btn btn-dark"><i class="fa fa-reply" aria-hidden="true"></i> Répondre</button>
+            
+            <form action="/admin/messages/reply/<%=message._id%>" method="post"  id="form" hidden>
+              <textarea class="form-control" name="message" rows="3"></textarea>
+              <button type="submit" id="btn" class="btn btn-dark"><i class="fa fa-paper-plane" aria-hidden="true"></i> Envoyer</button>
+            </form>
+          </div>
+          
+        </div>
+
+        <% if(message.reply) { %>
+
+        <div class="col-md-4" >
+          <div class="reply">
+              <h2>Réponse :</h2> 
+                <p><%= message.replyMessage %></p>
+          </div>
+        </div>
+        <% } %>
+
+
+
+      </div>
+    </div>
+
+    <script>
+      
+      function show(){
+        document.getElementById("form").hidden=false;
+        document.getElementById("btn").hidden=true
+      }
+
+
+    </script>
+
+  </body>
+</html>

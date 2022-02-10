@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>S'inscrire</title>
+    <link rel="icon" href="/images/ssise.png" sizes="16x16" />
+    <link rel="stylesheet" href="stylesheets/auth.css" />
+
+</head>
+
+<body>
+    <%- include('../header.ejs'); -%>
+
+
+        <% if (errors) { %>
+            <div class="container">
+                <div class="form">
+                    <form action="/signup" method="post" class="login-email">
+                        <p class="login-text" style="font-size: 2rem; font-weight: 600;">Inscrivez-vous</p>
+                        <div class="input-group">
+                            <input type="text" name="first"  value="<%=first%>" placeholder="Entrez votre prénom" >
+                            <% errors.forEach(function(error) { %>
+                                <% if(error.param=="first") {%><small>  <%=error.msg%> </small><% } %>
+                            <% });%>	
+                        </div>
+                        <div class="input-group">
+                            <input type="text"  name="last" value="<%=last%>" placeholder="Entrez votre nom" >
+                            <% errors.forEach(function(error) { %>
+                                <% if(error.param=="last") {%><small>  <%=error.msg%> </small><% } %>
+                            <% });%>	
+                        </div>
+                        <div class="input-group">
+                            <input type="text" name="email" value="<%=email%>" placeholder="Entrez votre email" >
+                            <% errors.forEach(function(error) { %>
+                                <% if(error.param=="email") {%><small>  <%=error.msg%> </small><% } %>
+                            <% });%>	
+                        </div>
+                        <div class="input-group">
+                            <input type="password"  name="password" placeholder="Entrez votre mot de passe" >
+                            <% errors.forEach(function(error) { %>
+                                <% if(error.param=="password") {%><small>  <%=error.msg%> </small><% } %>
+                            <% });%>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" name="confirmPassword" placeholder="Confirmer votre mot de passe" >
+                            <% errors.forEach(function(error) { %>
+                                <% if(error.param=="confirmPassword") {%><small>  <%=error.msg%> </small><% } %>
+                            <% });%>
+                        </div>
+                        <div class="input-group">
+                            <input type="text"  name="phone" value="<%=phone%>" placeholder="Entrez votre téléphone" >
+                            <% errors.forEach(function(error) { %>
+                                <% if(error.param=="phone") {%><small>  <%=error.msg%> </small><% } %>
+                            <% });%>	
+                        </div>
+                        <div class="input-group">
+                            <button name="submit" class="btn">Inscription</button>
+                        </div>
+                        <p class="login-register-text">Avoir un compte? <a href="/login">Connectez-vous ici</a></p>
+                        <input type="text" id="path" name="path" hidden>
+
+                    </form>
+                </div>
+            </div>
+
+        <% } else {%>
+
+            <div class="container">
+                <div class="form">
+                    <form action="/signup" method="post" class="login-email">
+                        <p class="login-text" style="font-size: 2rem; font-weight: 600;">Inscrivez-vous</p>
+                        <div class="input-group">
+                            <input type="text" name="first" placeholder="Entrez votre prénom" >	
+                        </div>
+                        <div class="input-group">
+                            <input type="text"  name="last"  placeholder="Entrez votre nom" >
+                        </div>
+                        <div class="input-group">
+                            <input type="text" name="email"  placeholder="Entrez votre email" >
+                        </div>
+                        <div class="input-group">
+                            <input type="password"  name="password" placeholder="Entrez votre mot de passe" >
+                        </div>
+                        <div class="input-group">
+                            <input type="password" name="confirmPassword" placeholder="Confirmer votre mot de passe" >
+                        </div>
+                        <div class="input-group">
+                            <input type="text"  name="phone"  placeholder="Entrez votre téléphone" >
+                        </div>
+                        <div class="input-group">
+                            <button name="submit" class="btn">Inscription</button>
+                        </div>
+                        <p class="login-register-text">Avoir un compte? <a href="/login">Connectez-vous ici</a></p>
+                        <input type="text" id="path" name="path" hidden>
+                    </form>
+                </div>
+            </div>
+        <% } %>
+
+
+
+
+
+
+                    <%- include('../footer.ejs'); -%>
+                        <script>
+                            let input = document.getElementById("path");
+                            input.value = document.referrer;
+                            console.log(input.value);
+                        </script>
+</body>
+
+</html>

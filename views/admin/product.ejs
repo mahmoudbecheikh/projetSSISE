@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="icon" href="/images/ssise.png" sizes="16x16" />
+    <title>Produit</title>
+
+</head>
+<body>
+    <%- include('header.ejs'); -%>
+
+  
+
+    <div class="container contenu">
+        <h2 class="page-title">Produits</h2>
+        <a href="/admin/products/add-product" class="btn btn-dark">Créer un produit </a>
+        <br><br>
+        <form class="form-inline my-2 my-lg-0 " method="get" action="/admin/products">
+            <input class="form-control col-sm-6 mr-2 text-left" name="subc" type="search" placeholder="Rechercher avec sous categorie" aria-label="Search">
+            <button class="btn btn-outline-info my-2 my-sm-0 text-right" type="submit">Rechercher</button>
+        </form>
+        <br><br>
+        <% if (count > 0) { %>
+
+            <table class="table ">
+                <thead>
+                    <tr class="home">
+                        <th>Titre</th>
+                        <th>Prix</th>
+                        <th>Quantité</th>
+                        <th>Sous catégorie</th>
+                        <th>Image</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+        
+        
+                    <% products.forEach(function(product){ %>
+                    <tr>
+                     
+                        <td>   
+                            <% if (product.quantity<=5) {%>
+                            <i class="fas fa-exclamation-triangle" style="color: red;"></i>
+                            <%} %>
+                            <%= product.title %>
+                        </td>
+                        <td><%= parseFloat(product.price).toFixed(2) %>DT</td>
+                        <td><%= product.quantity %></td>
+                        <% if (product.subCategory ) { %>
+                        <td><%= product.subCategory.titleSub %></td>
+                        <% } else {%>
+                            <td style="color: red;">Indéfinie</td>
+                            <% }%>
+                        <td>
+                        
+                            <img id="image" height="75" width="75" src="/images/products/<%= product.image %>">
+                        
+                        </td>
+                        <td><a href="/admin/products/edit-product/<%= product._id %>"><i class="fas fa-edit"></i></a>
+                        <a class="confirmDeletion" href="/admin/products/delete-product/<%= product._id %>"><i class="fa fa-trash"></i></a></td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        
+            <% } else {%>
+            <h3 class="text-center">Il n'y a pas de produits.</h3>
+            <% }%>
+    </div>
+  
+
+</body>
+</html>
+

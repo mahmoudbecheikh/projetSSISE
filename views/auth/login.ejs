@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Se connecter</title>
+    <link rel="icon" href="/images/ssise.png" sizes="16x16" />
+    <link rel="stylesheet" href="stylesheets/auth.css" />
+  </head>
+  <body>
+    <%- include('../header.ejs'); -%>
+
+    <% if (errors) { %>
+      <div class="form">
+        <form action="/login" method="post" class="login-email">
+          <p class="login-text" style="font-size: 2rem; font-weight: 600;">Connectez-vous</p>
+            <div class="input-group">
+              <input type="text" name="email" value="<%=email%>" placeholder="Entrez votre email" >
+              <% errors.forEach(function(error) { %>
+                  <% if(error.param=="email") {%><small>  <%=error.msg%> </small><% } %>
+              <% });%>            
+            </div>
+            <div class="input-group">
+              <input type="password"  name="password" placeholder="Entrez votre mot de passe" >
+              <% errors.forEach(function(error) { %>
+                  <% if(error.param=="password") {%><small >  <%=error.msg%> </small><% } %>
+              <% });%>
+          </div>
+            <p class="login-register-text"><a href="/forget-password">Mot de passe oublié ?</a></p>
+            <div class="input-group">
+              <button name="submit" class="btn">Se connecter</button>
+            </div>
+            <p class="login-register-text">Vous n’avez pas de compte ? <a href="/signup">Inscrivez-vous</a></p>
+            <input type="text" id="path" name="path" hidden>
+        </form>
+      </div>
+    </div>
+
+    <% } else {%>
+
+      <div class="container">
+        <div class="form">
+          <form action="/login" method="post" class="login-email">
+            <p class="login-text" style="font-size: 2rem; font-weight: 600;">Connectez-vous</p>
+              <div class="input-group">
+                <input type="text" name="email"  placeholder="Entrez votre email" >
+              </div>
+              <div class="input-group">
+                <input type="password"  name="password" placeholder="Entrez votre mot de passe" >
+              </div>
+              <p class="login-register-text"><a href="/forget-password">Mot de passe oublié ?</a></p>
+              <div class="input-group">
+                <button name="submit" class="btn">Se connecter</button>
+              </div>
+              <p class="login-register-text">Vous n’avez pas de compte ? <a href="/signup">Inscrivez-vous</a></p>
+              <input type="text" id="path"  name="path" hidden>
+          </form>
+        </div>
+      </div>
+
+  
+    <% } %>
+
+
+    <%- include('../footer.ejs'); -%>
+
+    <script>
+      var input = document.getElementById("path");
+      input.value = document.referrer;
+      console.log(input.value)
+    </script>
+  </body>
+</html>

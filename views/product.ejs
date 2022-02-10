@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+    <link rel="icon" href="/images/ssise.png" sizes="16x16" />
+	<title>Produit</title>
+	<link rel="stylesheet" href="/stylesheets/product.css" />
+
+</head>
+
+<body>
+	<%- include('header.ejs'); -%>
+
+
+	<!-- start search -->
+		<div class="container">
+			<form class="wrap" action="/search" method="GET">
+				<div class="search">
+					<input type="text" class="searchTerm" name="title" placeholder="Cherchez un produit...">
+					<button type="submit" class="searchButton">
+						<i class="fa fa-search"></i>
+					</button>
+				</div>
+			</form>
+		</div>
+	<!-- end search -->
+
+	<!-- start main  -->
+		<section>
+			<div class="container">
+				<div class="row">
+					<!-- start sidebar left  -->
+					<div class="col-sm-3">
+						<div class="left-sidebar">
+							<!-- category and subcategory -->
+							<h2>Categorie</h2>
+							<div class="panel-group category-products" id="accordian">
+								<!--category-->
+								<% categories.forEach(function(category) { %>
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<a data-toggle="collapse" data-parent="#accordian"
+													href="#<%= category.title %>">
+													<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+													<%= category.title %>
+												</a>
+											</h4>
+										</div>
+										<!--subcategory-->
+										<div id="<%=category.title%>" class="panel-collapse collapse">
+											<div class="panel-body">
+												<ul>
+													<% category.subCategories.forEach(function(subc) { %>
+														<li><a
+																href="/product/<%= category.title %>/<%= subc.titleSub %>">
+																<%= subc.titleSub %>
+															</a>
+														</li>
+														<% }); %>
+												</ul>
+											</div>
+										</div>
+									</div>
+								<% }); %>
+							</div>
+
+							<% if ( part=='prod_cat' ) {%>
+								<!--price-range-->
+								<div class="price-range">
+									<h2>Price Range</h2>
+									<form action="/product/<%= category %>/<%= subc %>" method="GET">
+										<form action="/product/<%= category %>/<%= subc %>" method="GET">
+											<section class="range-slider" >
+											<span class="rangeValues"></span>
+											<input value="<%=min %>" id="min" min="5" max="500"  onchange="this.form.submit()" step="1" name="gt" type="range">
+											<input value="<%=max %>" id="max" min="5" max="500" onchange="this.form.submit()" step="1"  name="lt" type="range">
+											</section>									  
+									</form>
+								</div>
+							<%}%>
+						</div>
+					</div>
+					<!-- End sidebar left  -->
+
+					<!-- Start side products  -->
+					<div class="col-sm-9 padding-right">
+						<% if ( part=='product' ) {%>
+							<div class="features_items">
+								<h2 class="title text-center"> Les plus demandés</h2>
+							</div>
+							<!-- products  -->
+							<div class="row">
+								<% products.forEach(function(product) { %>
+									<a href="/product/<%= product.title %>">
+										<div class="col-md-4 ">
+											<div class="card">
+												<div class="card-body">
+													<div class="card-img"> <img
+															src="/images/products/<%= product.image %>" width="150"
+															height="150" alt=""> </div>
+												</div>
+												<div class="card-body bg-light text-center">
+													<div class="mb-2">
+														<h6 class="title"> <a href="/product/<%= product.title %>" class="text-default mb-2"
+																data-abc="true">
+																<%= product.title%>
+															</a> </h6>
+															<% if(product.quantity>=1){ %>
+																<span data-abc="true" style="color: green;">En Stock</span>
+															<%} else {%>
+																<span data-abc="true" style="color: red;">Hors stock</span>
+															<% } %>													</div>
+													<h3 class="price">
+														<%= parseFloat(product.price).toFixed(3) %>DT
+
+														<% if(product.quantity>=1){ %>
+
+															<a href="/cart/add/<%= product.title%>">
+																	<i style="margin-left: 20px;"
+																	class="fas fa-cart-plus"></i>
+															</a>
+														<%} else {%>
+															<i style="margin-left: 20px;"
+															class="fas fa-cart-plus"></i>	
+														<% } %>
+
+													</h3>
+												</div>
+											</div>
+										</div>
+										<% }); %>
+							</div>
+						<%} else {%>
+							<div class="features_items">
+									<h2 class="title text-center">Articles</h2>
+									<div class="sort text-right">
+										<form action="<%= path %>" method="put">
+											<label for="sortBy">Trier par : </label>
+											<select class="form-select" name="sortBy" id="sortBy"
+												onchange="this.form.submit()">
+												<% if(sort=='croissant' ) { %>
+													<option value="croissant" selected>Croissant</option>
+													<option value="decroissant">Decroissant</option>
+													<% } else { %>
+														<option value="croissant">Croissant</option>
+														<option value="decroissant" selected>Decroissant</option>
+														<%}%>
+											</select>
+											<div class="subc text-left">
+												<% if(part=='prod_cat' ) { %>
+													<h4>
+														<%=subc%>
+															<input type="number" name="gt" value="<%=min%>" hidden>
+															<input type="number" name="lt" value="<%=max%>" hidden>
+
+													</h4>
+													<%}%>
+														<% if(part=='prod_search' ) { %>
+															<h4>
+																Résultats de la recherche : <%= title %>
+																<input type="text" name="title" value="<%=title%>" hidden>
+															</h4>
+													<%}%>
+
+										</form>
+
+										<span class="count_prod text-right">
+											<%=count_prod%> résultats
+										</span>
+									</div>
+							</div>
+							<!-- products  -->
+							<div class="row">
+									<% products.forEach(function(product) { %>
+										<a href="/product/<%= product.title %>">
+											<div class="col-md-4 ">
+												<div class="card">
+													<div class="card-body">
+														<div class="card-img"> <img
+																src="/images/products/<%= product.image %>" width="150"
+																height="150" alt=""> </div>
+													</div>
+													<div class="card-body bg-light text-center">
+														<div class="mb-2">
+															<h6 class="title"> <a href="#" class="text-default mb-2"
+																	data-abc="true">
+																	<%= product.title%>
+																</a> </h6>
+															
+																<% if(product.quantity>=1){ %>
+																	<span data-abc="true" style="color: green;">En Stock</span>
+																<%} else {%>
+																	<span data-abc="true" style="color: red;">Hors stock</span>
+																<% } %>
+																
+														</div>
+														<h3 class="price">
+															
+															<%= parseFloat(product.price).toFixed(3) %>DT
+
+															<% if(product.quantity>=1){ %>
+
+																<a href="/cart/add/<%= product.title%>">
+																		<i style="margin-left: 20px;"
+																		class="fas fa-cart-plus"></i>
+																</a>
+															<%} else {%>
+																<i style="margin-left: 20px;"
+																class="fas fa-cart-plus"></i>	
+															<% } %>
+
+															
+															
+
+														</h3>
+													</div>
+												</div>
+											</div>
+											<% }); %>
+
+							</div>
+						<%}%>
+					</div>
+					<!-- End side products  -->
+				</div>
+			</div>
+		</section>
+		<!-- End main  -->
+
+		<%- include('footer.ejs'); -%>
+		<script src="/javascripts/range.js"></script>
+
+
+</body>
+
+</html>

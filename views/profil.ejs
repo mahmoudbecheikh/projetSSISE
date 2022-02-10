@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <link rel="icon" href="/images/ssise.png" sizes="16x16" />
+    <title>Profil</title>
+</head>
+
+<body>
+
+    <% if (isAuth) { %>
+
+    <%- include('header.ejs'); -%>
+        <div class="container">
+            <div class="order">
+                <div class="row">
+                    <div class="col-sm-8">
+                            <form method="post" action="/profil/<%= user.displayName%>">
+                                    <% var fullName = user.displayName.split(" ") %> 
+
+                                    <label for="first"> Prénom</label><br>
+                                    <input type="text" class="form-control" value="<%=fullName[0]%>" name="first" id="first" >
+                                    <label for="first">Nom</label><br>
+                                    <input type="text" class="form-control"  value="<%=fullName[1]%>" name="last" id="last" >
+                                    <label for="email">Email</label><br>
+                                    <input type="email" class="form-control"   value="<%= user.email %>"name="email" id="email" >
+
+                                    <label for="password">Mot de passe</label><br>
+                                    <input type="password" class="form-control" name="password" id="password" >
+                                    
+                                    <label for="password">Confirmez le mot de passe</label><br>
+                                    <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" >
+
+                                    <label for="phone">Téléphone</label><br>
+                                    <input type="text" class="form-control"   value="<%= user.phone %>"name="phone" id="phone" >
+                                    
+                                    <label for="adresse">Adresse</label><br>
+                                    <input type="text" class="form-control"    value="<%= user.adresse%>" name="adresse" id="adresse" >
+                                    <label for="code">Code</label><br>
+                                    <input type="text" class="form-control"   value="<%= user.codeP%>"  name="code" id="code"  >
+
+                                    <button  style="margin: 20px 0; width: 150px;" type="submit" class="btn btn-dark" >Enregistrer</button>
+                            </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <%- include('footer.ejs'); -%>
+        <% } %>
+</body>
+
+</html>

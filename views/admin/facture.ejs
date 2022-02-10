@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Facture</title>
+
+    <style>
+        *{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        h1{
+            color:  #295284;;
+        }
+
+        table, td, th {
+        border: 1px solid black;
+        padding: 20px;
+        text-align: center;
+        
+        }
+
+        table {
+        width: 80%;
+        border-collapse: collapse;
+        }
+
+        .facture p,h3{
+            margin-left: 25px;
+        }
+
+        .facture{
+            border: 1px solid grey ; 
+            float: right;
+            margin-bottom: 25px; 
+            width: 100%;
+        }
+        .info p,h1{
+            margin-left: 25px;
+        }
+    </style>
+  </head>
+  <body>
+        <div class="info" style="float: left;">
+            <h1>SSISE</h1>
+          <p>Adresse : Cité Taib Mhirri Aouina</p>
+          <p>Téléphone : 70737911 </p>
+          <p>Email : St.Ssise60@gmail.com</p>
+        </div>
+
+        <div class="facture">
+          <h3>Facture N°<%=order.numero%>  </h3>
+          <p>Du <%= order.date.toLocaleString('en-US') %></p>
+          <p> <span style="text-transform: capitalize;"><%= order.user.displayName %></span>  (<%= order.user.email %>)</p>
+          <p><%= order.user.phone %></p>
+
+          <% if(order.livraison  == "domicile") { %>
+          <p><%= order.user.adresse %></p>
+          <% } %>
+        </div>
+      </div>
+      <br>
+      <br>
+      <center>
+        <table>
+            <tr>
+              <th>Titre</th>
+              <th>Prix</th>
+              <th>Quantité</th>
+              <th>Sous Total</th>
+            </tr>
+          <% var total = 0; %> 
+          <% details.forEach(function(detail){ %>
+          <% var sub = parseFloat(detail.quantity * detail.product.price).toFixed(3) %> 
+          <% total += +sub %>
+          
+          <tr>
+              <td><%= detail.product.title %></td>
+              <td><%=  parseFloat(detail.product.price).toFixed(3)  %>DT</td>
+              <td>
+              <%= detail.quantity %>
+              </td>
+              <td><%= parseFloat(sub).toFixed(3)  %>DT</td>
+          </tr>
+          <% }); %>
+          <tr>
+            <td colspan="6" style="text-align: right">
+            <b>Total: </b> <%= parseFloat(total).toFixed(3) %> DT
+            </td>
+          </tr>
+      </table>
+      </center>
+
+    </div>
+</body>
+</html>

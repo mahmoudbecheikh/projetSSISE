@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sous catégorie</title>
+    <link rel="icon" href="/images/ssise.png" sizes="16x16" />
+
+</head>
+<body>
+    <%- include('header.ejs'); -%>
+
+    <div class="container contenu">
+        <h2 class="page-title">Sous catégorie</h2>
+        <a href="/admin/subcategories/add-subcategory" class="btn btn-dark">Créer une sous catégorie </a>
+        <br><br>
+        <form class="form-inline my-2 my-lg-0 " method="get" action="/admin/subcategories">
+            <input class="form-control col-sm-6 mr-2 text-left" name="cat" type="search" placeholder="Rechercher avec categorie" aria-label="Search">
+            <button class="btn btn-outline-info my-2 my-sm-0 text-right" type="submit">Rechercher</button>
+        </form>
+        <br><br>
+
+        <% if (count > 0) { %>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Categorie</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% subcategories.forEach(function(cat){ %>
+                <tr>
+                    <td><%= cat.titleSub %></td>
+                    <td>
+                        <% if(cat.category) { %>
+                            <span><%= cat.category.title %></span>
+                        <%} else {%>
+                            <span style="color: red;">Indéfinie</span>
+                        <%}%>  
+                    </td>
+                    <td><a href="/admin/subCategories/edit-subcategory/<%= cat._id %>"><i class="fas fa-edit"></i></a>
+                    <a class="confirmDeletion" href="/admin/subCategories/delete-subcategory/<%= cat._id %>"><i class="fa fa-trash"></i></a></td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+        
+        <% } else {%>
+            <h3 class="text-center">Il n'y a pas de sous catégories.</h3>
+        <% }%>
+    </div>
+    
+</body>
+</html>
+

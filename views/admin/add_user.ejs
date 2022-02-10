@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Créer utilisateur</title>
+    <link rel="icon" href="/images/ssise.png" sizes="16x16" />
+</head>
+
+<body>
+    <%- include('header.ejs'); -%>
+
+
+
+        <div class="container contenu">
+            <h2 class="page-title">Créer un utilisateur</h2>
+            <a href="/admin/users" class="btn btn-dark">Annuler</a>
+            <br /><br />
+            <form method="post" action="/admin/users/add-user">
+                <label for="first"> Prénom</label><br>
+                <input type="text" class="form-control" value="<%=first%>" name="first" id="first" >
+                <label for="first">Nom</label><br>
+                <input type="text" class="form-control" value="<%=last%>" name="last" id="last" >
+                <label for="email">Email</label><br>
+                <input type="email" class="form-control" value="<%=email%>" name="email" id="email" >
+                <label for="password">Mot de passe</label><br>
+                <input type="password" class="form-control" name="password" id="password" >
+                <label for="password">Confirmez le mot de passe</label><br>
+                <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" >
+                <label for="phone">Téléphone</label><br>
+                <input type="text" class="form-control" value="<%=phone%>" name="phone" id="phone" >
+                <button  style="margin: 20px 0; width: 150px;" type="submit" class="btn btn-dark" >Créer</button>
+            </form>
+
+        </div>
+        
+
+</body>
+
+</html>

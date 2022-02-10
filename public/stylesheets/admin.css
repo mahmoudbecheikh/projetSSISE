@@ -1,0 +1,200 @@
+
+a:active , a:hover{
+    text-decoration: none;
+}
+
+
+
+
+table, th, td {
+    text-align: center;
+    text-transform: capitalize;
+
+}
+
+table th{
+    background-color: #1A5276;
+    color: white;
+}
+
+table tr:hover {
+    background-color: #ddd;
+}
+
+table, th, td,a, a:hover {
+    color: black;
+}
+
+.fa-trash{
+    color: #e71d34;
+    font-size: 20px;
+}
+.fa-trash :hover{
+    color: #e71d34;
+    font-size: 20px;
+}
+
+.fa-edit {
+    color: #4BCA81;
+    font-size: 20px;
+}
+.fa-edit :hover{
+    color: #4BCA81;
+    font-size: 20px;
+}
+
+.fa-info-circle{
+    color: #2980B9 ;
+    font-size: 18px;
+}
+
+.fa-info-circle:hover{
+    color: #2980B9    ;
+    font-size: 18px;
+}
+
+.fa-download{
+    font-size: 18px;
+    margin-right: 20px;
+}
+
+/* Sidebar start here  */
+
+.sidebar{
+    position: fixed;
+    background: #17202A;
+    font-family: 'Montserrat', sans-serif;
+    width: 200px;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  
+  .sidebar h2{
+    text-align: center;
+    font-size: 28px;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: #17202A;
+    padding: 20px;
+    font-weight: bold;
+  }
+  
+  .sidebar h2 a {
+    color: #ffffff;
+  
+  }
+  
+  
+  .sidebar ul li {
+    font-size: 16px;
+    margin: 25px 0;
+  }
+  
+  .sidebar ul li a{
+    color: #ffffff;
+    padding: 0 30px;
+  
+  }
+  .sidebar ul li a:hover{
+    color: #1ABC9C;
+  }
+  
+  /* Sidebar end Here  */
+  
+
+
+.container {
+    margin-left: 215px;
+} 
+
+
+/* dashboard*/
+
+.dash{
+    margin-top: 100px;
+}
+
+.dash h1 {
+    
+    margin: 50px;
+    color: #3498db;
+}
+
+
+.dash .stat {
+    color: white;
+    padding: 15px;
+    font-size: 15px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+
+.dash .stat span{
+    display: block;
+    font-size: 40px;
+}
+
+
+.dash .cat{
+    background-color: #34495e;
+}
+
+.dash .subc{
+    background-color: #2980b9;
+}
+
+.dash .prod{
+    background-color:#16a085;
+}
+
+.dash .order{
+    background-color: #7f8c8d;
+}
+
+.dash .user{
+    background-color: #2f3640;
+}
+
+
+
+.dash .msg{
+    background-color: black;
+}
+
+
+
+.contenu{
+    margin-top: 100px;
+}
+
+.contenu form{
+    width: 50%;
+}
+
+
+/* alert */
+
+.alert {
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.8;
+    width:60%;    
+    margin: 10px auto;
+    padding:30px;
+    border-radius:5px;
+    box-shadow:0 0 10px 1px #ccc;
+  }
+  
+  .alert-danger {
+    background-color: #e71d34!important;
+    color: #fff !important;
+  }
+  .alert-success {
+    background-color: #4BCA81!important;
+    color: #fff !important;
+  }
